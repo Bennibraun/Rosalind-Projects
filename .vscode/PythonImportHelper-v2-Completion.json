@@ -1,0 +1,941 @@
+[
+    {
+        "label": "SeqIO",
+        "importPath": "Bio",
+        "description": "Bio",
+        "isExtraImport": true,
+        "detail": "Bio",
+        "documentation": {}
+    },
+    {
+        "label": "SeqIO",
+        "importPath": "Bio",
+        "description": "Bio",
+        "isExtraImport": true,
+        "detail": "Bio",
+        "documentation": {}
+    },
+    {
+        "label": "SeqIO",
+        "importPath": "Bio",
+        "description": "Bio",
+        "isExtraImport": true,
+        "detail": "Bio",
+        "documentation": {}
+    },
+    {
+        "label": "SeqIO",
+        "importPath": "Bio",
+        "description": "Bio",
+        "isExtraImport": true,
+        "detail": "Bio",
+        "documentation": {}
+    },
+    {
+        "label": "SeqIO",
+        "importPath": "Bio",
+        "description": "Bio",
+        "isExtraImport": true,
+        "detail": "Bio",
+        "documentation": {}
+    },
+    {
+        "label": "pattern_count",
+        "importPath": "BA1A",
+        "description": "BA1A",
+        "isExtraImport": true,
+        "detail": "BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "nt_count",
+        "kind": 5,
+        "importPath": "stronghold.1 dna",
+        "description": "stronghold.1 dna",
+        "peekOfCode": "nt_count = {'A': 0, 'C': 0, 'G': 0, 'T': 0}\nwith open('data/rosalind_dna.txt', 'r') as f:\n    bases = f.readline().strip()\n    # bases = 'AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC'\n    for base in bases:\n        nt_count[base] += 1\nfor key, value in nt_count.items():\n    print(value,end=' ')",
+        "detail": "stronghold.1 dna",
+        "documentation": {}
+    },
+    {
+        "label": "seqs",
+        "kind": 5,
+        "importPath": "stronghold.10 cons",
+        "description": "stronghold.10 cons",
+        "peekOfCode": "seqs = SeqIO.parse(\"data/rosalind_cons.txt\", \"fasta\")\nnt_map = {'A':[],'C':[],'G':[],'T':[]}\nsized = False\nfor seq in seqs:\n    if not sized:\n        for key in nt_map:\n            nt_map[key] = [0] * len(seq.seq)\n        sized = True\n    i = 0\n    for nt in seq.seq:",
+        "detail": "stronghold.10 cons",
+        "documentation": {}
+    },
+    {
+        "label": "nt_map",
+        "kind": 5,
+        "importPath": "stronghold.10 cons",
+        "description": "stronghold.10 cons",
+        "peekOfCode": "nt_map = {'A':[],'C':[],'G':[],'T':[]}\nsized = False\nfor seq in seqs:\n    if not sized:\n        for key in nt_map:\n            nt_map[key] = [0] * len(seq.seq)\n        sized = True\n    i = 0\n    for nt in seq.seq:\n        nt_map[nt][i] += 1",
+        "detail": "stronghold.10 cons",
+        "documentation": {}
+    },
+    {
+        "label": "sized",
+        "kind": 5,
+        "importPath": "stronghold.10 cons",
+        "description": "stronghold.10 cons",
+        "peekOfCode": "sized = False\nfor seq in seqs:\n    if not sized:\n        for key in nt_map:\n            nt_map[key] = [0] * len(seq.seq)\n        sized = True\n    i = 0\n    for nt in seq.seq:\n        nt_map[nt][i] += 1\n        i += 1",
+        "detail": "stronghold.10 cons",
+        "documentation": {}
+    },
+    {
+        "label": "rabbits",
+        "kind": 5,
+        "importPath": "stronghold.11 fibd",
+        "description": "stronghold.11 fibd",
+        "peekOfCode": "rabbits = [0]*m\nrabbits[0] = 1\nfor i in range(n-1):\n    temp = sum(rabbits[1:])\n    rabbits = [temp] + rabbits[:-1]\nprint(sum(rabbits))",
+        "detail": "stronghold.11 fibd",
+        "documentation": {}
+    },
+    {
+        "label": "rabbits[0]",
+        "kind": 5,
+        "importPath": "stronghold.11 fibd",
+        "description": "stronghold.11 fibd",
+        "peekOfCode": "rabbits[0] = 1\nfor i in range(n-1):\n    temp = sum(rabbits[1:])\n    rabbits = [temp] + rabbits[:-1]\nprint(sum(rabbits))",
+        "detail": "stronghold.11 fibd",
+        "documentation": {}
+    },
+    {
+        "label": "k",
+        "kind": 5,
+        "importPath": "stronghold.12 grph",
+        "description": "stronghold.12 grph",
+        "peekOfCode": "k = 3\nfor s in nodes:\n    suffix = nodes[s][-k:]\n    for t in nodes:\n        if nodes[t] != nodes[s]:\n            prefix = nodes[t][:k]\n            if suffix == prefix:\n                print(s,t)",
+        "detail": "stronghold.12 grph",
+        "documentation": {}
+    },
+    {
+        "label": "dom_probs",
+        "kind": 5,
+        "importPath": "stronghold.13 iev",
+        "description": "stronghold.13 iev",
+        "peekOfCode": "dom_probs = [1,1,1,0.75,0.5,0]\ntotal = sum(genotypes)\nexpected = 0\nfor genotype, dom in zip(genotypes,dom_probs):\n    expected += 2 * genotype * dom\nprint(expected)",
+        "detail": "stronghold.13 iev",
+        "documentation": {}
+    },
+    {
+        "label": "total",
+        "kind": 5,
+        "importPath": "stronghold.13 iev",
+        "description": "stronghold.13 iev",
+        "peekOfCode": "total = sum(genotypes)\nexpected = 0\nfor genotype, dom in zip(genotypes,dom_probs):\n    expected += 2 * genotype * dom\nprint(expected)",
+        "detail": "stronghold.13 iev",
+        "documentation": {}
+    },
+    {
+        "label": "expected",
+        "kind": 5,
+        "importPath": "stronghold.13 iev",
+        "description": "stronghold.13 iev",
+        "peekOfCode": "expected = 0\nfor genotype, dom in zip(genotypes,dom_probs):\n    expected += 2 * genotype * dom\nprint(expected)",
+        "detail": "stronghold.13 iev",
+        "documentation": {}
+    },
+    {
+        "label": "common_substr",
+        "kind": 2,
+        "importPath": "stronghold.14 lcsm",
+        "description": "stronghold.14 lcsm",
+        "peekOfCode": "def common_substr(s, seqs, length):\n    for start in range(len(s)-length):\n        substr = s[start:start+length]\n        i = 0\n        while i < len(seqs) and substr in seqs[i]:\n            i += 1\n        if i == len(seqs):\n            return substr\n    return None\nlongest_seq = max(dna, key=len)",
+        "detail": "stronghold.14 lcsm",
+        "documentation": {}
+    },
+    {
+        "label": "longest_seq",
+        "kind": 5,
+        "importPath": "stronghold.14 lcsm",
+        "description": "stronghold.14 lcsm",
+        "peekOfCode": "longest_seq = max(dna, key=len)\nlength = 1\nwhile True:\n    if new_motif := common_substr(longest_seq, dna, length):\n        motif = new_motif\n    else:\n        break\n    length += 1\nprint(motif)",
+        "detail": "stronghold.14 lcsm",
+        "documentation": {}
+    },
+    {
+        "label": "length",
+        "kind": 5,
+        "importPath": "stronghold.14 lcsm",
+        "description": "stronghold.14 lcsm",
+        "peekOfCode": "length = 1\nwhile True:\n    if new_motif := common_substr(longest_seq, dna, length):\n        motif = new_motif\n    else:\n        break\n    length += 1\nprint(motif)",
+        "detail": "stronghold.14 lcsm",
+        "documentation": {}
+    },
+    {
+        "label": "k",
+        "kind": 5,
+        "importPath": "stronghold.15 lia",
+        "description": "stronghold.15 lia",
+        "peekOfCode": "k = 2\nN = 1\n# first gen:\n# Aa Bb * Aa Bb\n# AA BB = 1/4 * 1/4 = 1/16\n# AA Bb = 1/4 * 1/2 = 1/8\n# AA bb = 1/4 * 1/4 = 1/16\n# Aa BB = 1/2 * 1/4 = 1/8\n# Aa Bb = 1/2 * 1/2 = 1/4\n# Aa bb = 1/2 * 1/4 = 1/8",
+        "detail": "stronghold.15 lia",
+        "documentation": {}
+    },
+    {
+        "label": "N",
+        "kind": 5,
+        "importPath": "stronghold.15 lia",
+        "description": "stronghold.15 lia",
+        "peekOfCode": "N = 1\n# first gen:\n# Aa Bb * Aa Bb\n# AA BB = 1/4 * 1/4 = 1/16\n# AA Bb = 1/4 * 1/2 = 1/8\n# AA bb = 1/4 * 1/4 = 1/16\n# Aa BB = 1/2 * 1/4 = 1/8\n# Aa Bb = 1/2 * 1/2 = 1/4\n# Aa bb = 1/2 * 1/4 = 1/8\n# aa BB = 1/4 * 1/4 = 1/16",
+        "detail": "stronghold.15 lia",
+        "documentation": {}
+    },
+    {
+        "label": "mature",
+        "kind": 5,
+        "importPath": "stronghold.4 fib",
+        "description": "stronghold.4 fib",
+        "peekOfCode": "mature = 0\nyoung = 1\nfor i in range(n):\n    new_young = mature * k\n    mature += young\n    young = new_young\nprint(mature)",
+        "detail": "stronghold.4 fib",
+        "documentation": {}
+    },
+    {
+        "label": "young",
+        "kind": 5,
+        "importPath": "stronghold.4 fib",
+        "description": "stronghold.4 fib",
+        "peekOfCode": "young = 1\nfor i in range(n):\n    new_young = mature * k\n    mature += young\n    young = new_young\nprint(mature)",
+        "detail": "stronghold.4 fib",
+        "documentation": {}
+    },
+    {
+        "label": "dna",
+        "kind": 5,
+        "importPath": "stronghold.5 gc",
+        "description": "stronghold.5 gc",
+        "peekOfCode": "dna = SeqIO.parse(open('data/rosalind_gc.txt', 'r'), 'fasta')\nhighest_gc = ('',0)\nfor fasta in dna:\n    gc_count = 0\n    for base in fasta.seq:\n        if base == 'G' or base == 'C':\n            gc_count += 1\n    gc_count = (gc_count / len(fasta.seq)) * 100\n    if gc_count > highest_gc[1]:\n        highest_gc = (fasta.id, gc_count)",
+        "detail": "stronghold.5 gc",
+        "documentation": {}
+    },
+    {
+        "label": "highest_gc",
+        "kind": 5,
+        "importPath": "stronghold.5 gc",
+        "description": "stronghold.5 gc",
+        "peekOfCode": "highest_gc = ('',0)\nfor fasta in dna:\n    gc_count = 0\n    for base in fasta.seq:\n        if base == 'G' or base == 'C':\n            gc_count += 1\n    gc_count = (gc_count / len(fasta.seq)) * 100\n    if gc_count > highest_gc[1]:\n        highest_gc = (fasta.id, gc_count)\nprint(highest_gc[0],'\\n'+str(highest_gc[1])[:-8])",
+        "detail": "stronghold.5 gc",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 5,
+        "importPath": "stronghold.6 hamm",
+        "description": "stronghold.6 hamm",
+        "peekOfCode": "hamming_distance = 0\nfor i in range(len(s1)):\n    if s1[i] != s2[i]:\n        hamming_distance += 1\nprint(hamming_distance)",
+        "detail": "stronghold.6 hamm",
+        "documentation": {}
+    },
+    {
+        "label": "pop",
+        "kind": 5,
+        "importPath": "stronghold.7 iprb",
+        "description": "stronghold.7 iprb",
+        "peekOfCode": "pop = k+m+n\nprob_dominant = 1 - (m*n + .25*m*(m-1) + n*(n-1)) / (pop*(pop-1))\nprint(prob_dominant)",
+        "detail": "stronghold.7 iprb",
+        "documentation": {}
+    },
+    {
+        "label": "prob_dominant",
+        "kind": 5,
+        "importPath": "stronghold.7 iprb",
+        "description": "stronghold.7 iprb",
+        "peekOfCode": "prob_dominant = 1 - (m*n + .25*m*(m-1) + n*(n-1)) / (pop*(pop-1))\nprint(prob_dominant)",
+        "detail": "stronghold.7 iprb",
+        "documentation": {}
+    },
+    {
+        "label": "rna_to_prot_map",
+        "kind": 5,
+        "importPath": "stronghold.8 prot",
+        "description": "stronghold.8 prot",
+        "peekOfCode": "rna_to_prot_map = {\n    'UUU': 'F', 'CUU': 'L', 'AUU': 'I', 'GUU': 'V',\n    'UUC': 'F', 'CUC': 'L', 'AUC': 'I', 'GUC': 'V',\n    'UUA': 'L', 'CUA': 'L', 'AUA': 'I', 'GUA': 'V',\n    'UUG': 'L', 'CUG': 'L', 'AUG': 'M', 'GUG': 'V',\n    'UCU': 'S', 'CCU': 'P', 'ACU': 'T', 'GCU': 'A',\n    'UCC': 'S', 'CCC': 'P', 'ACC': 'T', 'GCC': 'A',\n    'UCA': 'S', 'CCA': 'P', 'ACA': 'T', 'GCA': 'A',\n    'UCG': 'S', 'CCG': 'P', 'ACG': 'T', 'GCG': 'A',\n    'UAU': 'Y', 'CAU': 'H', 'AAU': 'N', 'GAU': 'D',",
+        "detail": "stronghold.8 prot",
+        "documentation": {}
+    },
+    {
+        "label": "prot",
+        "kind": 5,
+        "importPath": "stronghold.8 prot",
+        "description": "stronghold.8 prot",
+        "peekOfCode": "prot = ''\nfor nt in range(0, len(rna), 3):\n    if rna_to_prot_map[rna[nt:nt+3]] == 'Stop':\n        break\n    prot += rna_to_prot_map[rna[nt:nt+3]]\nprint(prot)",
+        "detail": "stronghold.8 prot",
+        "documentation": {}
+    },
+    {
+        "label": "locs",
+        "kind": 5,
+        "importPath": "stronghold.9 subs",
+        "description": "stronghold.9 subs",
+        "peekOfCode": "locs = []\nfor i in range(len(s)-len(t)+1):\n    if s[i:i+len(t)] == t:\n        locs.append(str(i+1))\nprint(' '.join(locs))",
+        "detail": "stronghold.9 subs",
+        "documentation": {}
+    },
+    {
+        "label": "pattern_count",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "def pattern_count(text,pattern):\n\tcount = 0\n\tfor i in range(len(text)-len(pattern)+1):\n\t\tif text[i:i+len(pattern)] == pattern:\n\t\t\tcount += 1\n\treturn count\nif __name__ == '__main__':\n\timport os\n\timport glob\n\tdatapath = []",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "\tcount",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "\tcount = 0\n\tfor i in range(len(text)-len(pattern)+1):\n\t\tif text[i:i+len(pattern)] == pattern:\n\t\t\tcount += 1\n\treturn count\nif __name__ == '__main__':\n\timport os\n\timport glob\n\tdatapath = []\n\tif 'textbook' in glob.glob('*'):",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1a.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1a.txt')) as f:\n\t\t# read data\n\t\ttext = f.readline().strip()\n\t\tpattern = f.readline().strip()\n\tprint(pattern_count(text,pattern))",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "\t\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "\t\ttext = f.readline().strip()\n\t\tpattern = f.readline().strip()\n\tprint(pattern_count(text,pattern))",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tpattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1A",
+        "description": "textbook.scripts.BA1A",
+        "peekOfCode": "\t\tpattern = f.readline().strip()\n\tprint(pattern_count(text,pattern))",
+        "detail": "textbook.scripts.BA1A",
+        "documentation": {}
+    },
+    {
+        "label": "frequent_words",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "def frequent_words(text,k):\n\tfrequent_patterns = set()\n\tcount = {}\n\tfor i in range(len(text) - k + 1):\n\t\tpattern = text[i:i+k]\n\t\tcount[i] = pattern_count(text,pattern)\n\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tfrequent_patterns",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tfrequent_patterns = set()\n\tcount = {}\n\tfor i in range(len(text) - k + 1):\n\t\tpattern = text[i:i+k]\n\t\tcount[i] = pattern_count(text,pattern)\n\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])\n\treturn frequent_patterns",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tcount",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tcount = {}\n\tfor i in range(len(text) - k + 1):\n\t\tpattern = text[i:i+k]\n\t\tcount[i] = pattern_count(text,pattern)\n\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])\n\treturn frequent_patterns\nif __name__ == '__main__':",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tpattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\t\tpattern = text[i:i+k]\n\t\tcount[i] = pattern_count(text,pattern)\n\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])\n\treturn frequent_patterns\nif __name__ == '__main__':\n\timport os\n\timport glob",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tcount[i]",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\t\tcount[i] = pattern_count(text,pattern)\n\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])\n\treturn frequent_patterns\nif __name__ == '__main__':\n\timport os\n\timport glob\n\tdatapath = []",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tmax_count",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tmax_count = max(count.values())\n\tfor i in range(len(text) - k + 1):\n\t\tif count[i] == max_count:\n\t\t\tfrequent_patterns.add(text[i:i+k])\n\treturn frequent_patterns\nif __name__ == '__main__':\n\timport os\n\timport glob\n\tdatapath = []\n\tif 'textbook' in glob.glob('*'):",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1b.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1b.txt')) as f:\n\t\t# read data\n\t\ttext = f.readline().strip()\n\t\tk = int(f.readline().strip())\n\tresult = frequent_words(text,k)\n\tprint(' '.join(result))",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\t\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\t\ttext = f.readline().strip()\n\t\tk = int(f.readline().strip())\n\tresult = frequent_words(text,k)\n\tprint(' '.join(result))",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tk",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\t\tk = int(f.readline().strip())\n\tresult = frequent_words(text,k)\n\tprint(' '.join(result))",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "\tresult",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1B",
+        "description": "textbook.scripts.BA1B",
+        "peekOfCode": "\tresult = frequent_words(text,k)\n\tprint(' '.join(result))",
+        "detail": "textbook.scripts.BA1B",
+        "documentation": {}
+    },
+    {
+        "label": "revc",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1C",
+        "description": "textbook.scripts.BA1C",
+        "peekOfCode": "def revc(dna):\n\treturn ''.join([{'A':'T','T':'A','C':'G','G':'C'}[i] for i in dna])[::-1]\nprint(revc(dna))",
+        "detail": "textbook.scripts.BA1C",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1C",
+        "description": "textbook.scripts.BA1C",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1c.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1C",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1C",
+        "description": "textbook.scripts.BA1C",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1c.txt')) as f:\n\t\t# read data\n\t\tdna = f.readline().strip()\ndef revc(dna):\n\treturn ''.join([{'A':'T','T':'A','C':'G','G':'C'}[i] for i in dna])[::-1]\nprint(revc(dna))",
+        "detail": "textbook.scripts.BA1C",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tdna",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1C",
+        "description": "textbook.scripts.BA1C",
+        "peekOfCode": "\t\tdna = f.readline().strip()\ndef revc(dna):\n\treturn ''.join([{'A':'T','T':'A','C':'G','G':'C'}[i] for i in dna])[::-1]\nprint(revc(dna))",
+        "detail": "textbook.scripts.BA1C",
+        "documentation": {}
+    },
+    {
+        "label": "pattern_match",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "def pattern_match(pattern,genome):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif genome[i:i+len(pattern)] == pattern:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in pattern_match(pattern,genome)]))",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1d.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1d.txt')) as f:\n\t\t# read data\n\t\tpattern = f.readline().strip()\n\t\tgenome = f.readline().strip()\ndef pattern_match(pattern,genome):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif genome[i:i+len(pattern)] == pattern:\n\t\t\tpositions.append(i)",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tpattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "\t\tpattern = f.readline().strip()\n\t\tgenome = f.readline().strip()\ndef pattern_match(pattern,genome):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif genome[i:i+len(pattern)] == pattern:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in pattern_match(pattern,genome)]))",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tgenome",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "\t\tgenome = f.readline().strip()\ndef pattern_match(pattern,genome):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif genome[i:i+len(pattern)] == pattern:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in pattern_match(pattern,genome)]))",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "\tpositions",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1D",
+        "description": "textbook.scripts.BA1D",
+        "peekOfCode": "\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif genome[i:i+len(pattern)] == pattern:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in pattern_match(pattern,genome)]))",
+        "detail": "textbook.scripts.BA1D",
+        "documentation": {}
+    },
+    {
+        "label": "symbol_to_number",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def symbol_to_number(symbol):\n\treturn {'A':0,'C':1,'G':2,'T':3}[symbol]\ndef pattern_to_number(pattern):\n\tif len(pattern) == 0:\n\t\treturn 0\n\tsymbol = pattern[-1]\n\tprefix = pattern[:-1]\n\treturn 4*pattern_to_number(prefix) + symbol_to_number(symbol)\ndef number_to_symbol(number):\n\treturn {0:'A',1:'C',2:'G',3:'T'}[number]",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "pattern_to_number",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def pattern_to_number(pattern):\n\tif len(pattern) == 0:\n\t\treturn 0\n\tsymbol = pattern[-1]\n\tprefix = pattern[:-1]\n\treturn 4*pattern_to_number(prefix) + symbol_to_number(symbol)\ndef number_to_symbol(number):\n\treturn {0:'A',1:'C',2:'G',3:'T'}[number]\ndef number_to_pattern(index,k):\n\tif k == 1:",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "number_to_symbol",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def number_to_symbol(number):\n\treturn {0:'A',1:'C',2:'G',3:'T'}[number]\ndef number_to_pattern(index,k):\n\tif k == 1:\n\t\treturn number_to_symbol(index)\n\tprefix_index = index // 4\n\tr = index % 4\n\tsymbol = number_to_symbol(r)\n\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "number_to_pattern",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def number_to_pattern(index,k):\n\tif k == 1:\n\t\treturn number_to_symbol(index)\n\tprefix_index = index // 4\n\tr = index % 4\n\tsymbol = number_to_symbol(r)\n\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol\ndef find_frequent_words(genome,k):\n\tkmers = []",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "find_frequent_words",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def find_frequent_words(genome,k):\n\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()\n\tfreqs= {}\n\tfor kmer in kmers:\n\t\tif kmer in freqs:\n\t\t\tfreqs[kmer] += 1",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "find_clumps",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "def find_clumps(genome,k,L,t):\n\tfreq_patterns = set()\n\tfreqs = find_frequent_words(genome[:L],k)\n\tfor i in range(len(genome)-L):\n\t\ttext = genome[i:i+L]\n\t\tfor kmer in freqs:\n\t\t\tif freqs[kmer] >= t:\n\t\t\t\tfreq_patterns.add(number_to_pattern(kmer,k))\n\t\t# remove first kmer\n\t\tfirst_kmer = pattern_to_number(text[:k])",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1e.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1e.txt')) as f:\n\t\t# read data\n\t\tgenome = f.readline().strip()\n\t\tk, L, t = [int(x) for x in f.readline().strip().split(' ')]\ndef symbol_to_number(symbol):\n\treturn {'A':0,'C':1,'G':2,'T':3}[symbol]\ndef pattern_to_number(pattern):\n\tif len(pattern) == 0:\n\t\treturn 0",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tgenome",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\tgenome = f.readline().strip()\n\t\tk, L, t = [int(x) for x in f.readline().strip().split(' ')]\ndef symbol_to_number(symbol):\n\treturn {'A':0,'C':1,'G':2,'T':3}[symbol]\ndef pattern_to_number(pattern):\n\tif len(pattern) == 0:\n\t\treturn 0\n\tsymbol = pattern[-1]\n\tprefix = pattern[:-1]\n\treturn 4*pattern_to_number(prefix) + symbol_to_number(symbol)",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tsymbol",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tsymbol = pattern[-1]\n\tprefix = pattern[:-1]\n\treturn 4*pattern_to_number(prefix) + symbol_to_number(symbol)\ndef number_to_symbol(number):\n\treturn {0:'A',1:'C',2:'G',3:'T'}[number]\ndef number_to_pattern(index,k):\n\tif k == 1:\n\t\treturn number_to_symbol(index)\n\tprefix_index = index // 4\n\tr = index % 4",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tprefix",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tprefix = pattern[:-1]\n\treturn 4*pattern_to_number(prefix) + symbol_to_number(symbol)\ndef number_to_symbol(number):\n\treturn {0:'A',1:'C',2:'G',3:'T'}[number]\ndef number_to_pattern(index,k):\n\tif k == 1:\n\t\treturn number_to_symbol(index)\n\tprefix_index = index // 4\n\tr = index % 4\n\tsymbol = number_to_symbol(r)",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tprefix_index",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tprefix_index = index // 4\n\tr = index % 4\n\tsymbol = number_to_symbol(r)\n\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol\ndef find_frequent_words(genome,k):\n\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tr",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tr = index % 4\n\tsymbol = number_to_symbol(r)\n\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol\ndef find_frequent_words(genome,k):\n\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tsymbol",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tsymbol = number_to_symbol(r)\n\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol\ndef find_frequent_words(genome,k):\n\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()\n\tfreqs= {}",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tprefix_pattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tprefix_pattern = number_to_pattern(prefix_index,k-1)\n\treturn prefix_pattern + symbol\ndef find_frequent_words(genome,k):\n\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()\n\tfreqs= {}\n\tfor kmer in kmers:",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tkmers",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tkmers = []\n\tfor i in range(len(genome)-k+1):\n\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()\n\tfreqs= {}\n\tfor kmer in kmers:\n\t\tif kmer in freqs:\n\t\t\tfreqs[kmer] += 1\n\t\telse:",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tpattern_num",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\tpattern_num = pattern_to_number(genome[i:i+k])\n\t\tkmers.append(pattern_num)\n\tkmers.sort()\n\tfreqs= {}\n\tfor kmer in kmers:\n\t\tif kmer in freqs:\n\t\t\tfreqs[kmer] += 1\n\t\telse:\n\t\t\tfreqs[kmer] = 1\n\treturn freqs",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tfreqs[kmer]",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\t\tfreqs[kmer] = 1\n\treturn freqs\ndef find_clumps(genome,k,L,t):\n\tfreq_patterns = set()\n\tfreqs = find_frequent_words(genome[:L],k)\n\tfor i in range(len(genome)-L):\n\t\ttext = genome[i:i+L]\n\t\tfor kmer in freqs:\n\t\t\tif freqs[kmer] >= t:\n\t\t\t\tfreq_patterns.add(number_to_pattern(kmer,k))",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tfreq_patterns",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tfreq_patterns = set()\n\tfreqs = find_frequent_words(genome[:L],k)\n\tfor i in range(len(genome)-L):\n\t\ttext = genome[i:i+L]\n\t\tfor kmer in freqs:\n\t\t\tif freqs[kmer] >= t:\n\t\t\t\tfreq_patterns.add(number_to_pattern(kmer,k))\n\t\t# remove first kmer\n\t\tfirst_kmer = pattern_to_number(text[:k])\n\t\tfreqs[first_kmer] -= 1",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\tfreqs",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\tfreqs = find_frequent_words(genome[:L],k)\n\tfor i in range(len(genome)-L):\n\t\ttext = genome[i:i+L]\n\t\tfor kmer in freqs:\n\t\t\tif freqs[kmer] >= t:\n\t\t\t\tfreq_patterns.add(number_to_pattern(kmer,k))\n\t\t# remove first kmer\n\t\tfirst_kmer = pattern_to_number(text[:k])\n\t\tfreqs[first_kmer] -= 1\n\t\t# add last kmer",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\ttext = genome[i:i+L]\n\t\tfor kmer in freqs:\n\t\t\tif freqs[kmer] >= t:\n\t\t\t\tfreq_patterns.add(number_to_pattern(kmer,k))\n\t\t# remove first kmer\n\t\tfirst_kmer = pattern_to_number(text[:k])\n\t\tfreqs[first_kmer] -= 1\n\t\t# add last kmer\n\t\tlast_kmer = pattern_to_number(text[-k:])\n\t\tif last_kmer in freqs:",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tfirst_kmer",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\tfirst_kmer = pattern_to_number(text[:k])\n\t\tfreqs[first_kmer] -= 1\n\t\t# add last kmer\n\t\tlast_kmer = pattern_to_number(text[-k:])\n\t\tif last_kmer in freqs:\n\t\t\tfreqs[last_kmer] += 1\n\t\telse:\n\t\t\tfreqs[last_kmer] = 1\n\treturn freq_patterns\n# genome = 'CGGACTCGACAGATGTGAAGAAATGTGAAGACTGAGTGAAGAGAAGAGGAAACACGACACGACATTGCGACATAATGTACGAATGTAATGTGCCTATGGC'",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tlast_kmer",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\tlast_kmer = pattern_to_number(text[-k:])\n\t\tif last_kmer in freqs:\n\t\t\tfreqs[last_kmer] += 1\n\t\telse:\n\t\t\tfreqs[last_kmer] = 1\n\treturn freq_patterns\n# genome = 'CGGACTCGACAGATGTGAAGAAATGTGAAGACTGAGTGAAGAGAAGAGGAAACACGACACGACATTGCGACATAATGTACGAATGTAATGTGCCTATGGC'\n# k, L, t = [int(x) for x in '5 75 4'.split(' ')]\nprint(' '.join(find_clumps(genome,k,L,t)))",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tfreqs[last_kmer]",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1E",
+        "description": "textbook.scripts.BA1E",
+        "peekOfCode": "\t\t\tfreqs[last_kmer] = 1\n\treturn freq_patterns\n# genome = 'CGGACTCGACAGATGTGAAGAAATGTGAAGACTGAGTGAAGAGAAGAGGAAACACGACACGACATTGCGACATAATGTACGAATGTAATGTGCCTATGGC'\n# k, L, t = [int(x) for x in '5 75 4'.split(' ')]\nprint(' '.join(find_clumps(genome,k,L,t)))",
+        "detail": "textbook.scripts.BA1E",
+        "documentation": {}
+    },
+    {
+        "label": "minimum_gc_skew",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "def minimum_gc_skew(genome):\n\tskew = 0\n\tmins = {'min':0,'indices':[]}\n\tfor i,nuc in enumerate(genome):\n\t\tskew += {'G':1,'C':-1,'A':0,'T':0}[nuc]\n\t\tif skew < mins['min']:\n\t\t\tmins['min'] = skew\n\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:\n\t\t\tmins['indices'].append(i+1)",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1f.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1f.txt')) as f:\n\t\t# read data\n\t\tgenome = f.readline().strip()\ndef minimum_gc_skew(genome):\n\tskew = 0\n\tmins = {'min':0,'indices':[]}\n\tfor i,nuc in enumerate(genome):\n\t\tskew += {'G':1,'C':-1,'A':0,'T':0}[nuc]\n\t\tif skew < mins['min']:",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tgenome",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\t\tgenome = f.readline().strip()\ndef minimum_gc_skew(genome):\n\tskew = 0\n\tmins = {'min':0,'indices':[]}\n\tfor i,nuc in enumerate(genome):\n\t\tskew += {'G':1,'C':-1,'A':0,'T':0}[nuc]\n\t\tif skew < mins['min']:\n\t\t\tmins['min'] = skew\n\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\tskew",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\tskew = 0\n\tmins = {'min':0,'indices':[]}\n\tfor i,nuc in enumerate(genome):\n\t\tskew += {'G':1,'C':-1,'A':0,'T':0}[nuc]\n\t\tif skew < mins['min']:\n\t\t\tmins['min'] = skew\n\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:\n\t\t\tmins['indices'].append(i+1)\n\tprint(mins)",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\tmins",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\tmins = {'min':0,'indices':[]}\n\tfor i,nuc in enumerate(genome):\n\t\tskew += {'G':1,'C':-1,'A':0,'T':0}[nuc]\n\t\tif skew < mins['min']:\n\t\t\tmins['min'] = skew\n\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:\n\t\t\tmins['indices'].append(i+1)\n\tprint(mins)\n\treturn mins['indices']",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tmins['min']",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\t\t\tmins['min'] = skew\n\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:\n\t\t\tmins['indices'].append(i+1)\n\tprint(mins)\n\treturn mins['indices']\n# genome='CCTATCGGTGGATTAGCATGTCCCTGTACGTTTCGCCGCGAACTAGTTCACACGGCTTGATGGCAAATGGTTTTTCCGGCGACCGTAATCGTCCACCGAG'\nprint(' '.join([str(x) for x in minimum_gc_skew(genome)]))",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tmins['indices']",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1F",
+        "description": "textbook.scripts.BA1F",
+        "peekOfCode": "\t\t\tmins['indices'] = [i+1]\n\t\telif skew == mins['min']:\n\t\t\tmins['indices'].append(i+1)\n\tprint(mins)\n\treturn mins['indices']\n# genome='CCTATCGGTGGATTAGCATGTCCCTGTACGTTTCGCCGCGAACTAGTTCACACGGCTTGATGGCAAATGGTTTTTCCGGCGACCGTAATCGTCCACCGAG'\nprint(' '.join([str(x) for x in minimum_gc_skew(genome)]))",
+        "detail": "textbook.scripts.BA1F",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\n# p = 'GGGCCGTTGGT'\n# q = 'GGACCGTTGAC'\nprint(hamming_distance(p,q))",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1g.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1g.txt')) as f:\n\t\t# read data\n\t\tp = f.readline().strip()\n\t\tq = f.readline().strip()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tp",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "\t\tp = f.readline().strip()\n\t\tq = f.readline().strip()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\n# p = 'GGGCCGTTGGT'\n# q = 'GGACCGTTGAC'",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tq",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "\t\tq = f.readline().strip()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\n# p = 'GGGCCGTTGGT'\n# q = 'GGACCGTTGAC'\nprint(hamming_distance(p,q))",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1G",
+        "description": "textbook.scripts.BA1G",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\n# p = 'GGGCCGTTGGT'\n# q = 'GGACCGTTGAC'\nprint(hamming_distance(p,q))",
+        "detail": "textbook.scripts.BA1G",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef approximate_pattern_matching(pattern,genome,d):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif hamming_distance(genome[i:i+len(pattern)],pattern) <= d:",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "approximate_pattern_matching",
+        "kind": 2,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "def approximate_pattern_matching(pattern,genome,d):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif hamming_distance(genome[i:i+len(pattern)],pattern) <= d:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in approximate_pattern_matching(pattern,genome,d)]))",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.append('..')\n\t\tdatapath.append('data')\n\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1h.txt')) as f:\n\t\t# read data",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\twith open(os.path.join(datapath,'rosalind_ba1h.txt')) as f:\n\t\t# read data\n\t\tpattern = f.readline().strip()\n\t\tgenome = f.readline().strip()\n\t\td = int(f.readline().strip())\n# pattern = 'ATTCTGGA'\n# genome = 'CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAATGCCTAGCGGCTTGTGGTTTCTCCTACGCTCC'\n# d = 3\ndef hamming_distance(p,q):",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tpattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\t\tpattern = f.readline().strip()\n\t\tgenome = f.readline().strip()\n\t\td = int(f.readline().strip())\n# pattern = 'ATTCTGGA'\n# genome = 'CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAATGCCTAGCGGCTTGTGGTTTCTCCTACGCTCC'\n# d = 3\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tgenome",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\t\tgenome = f.readline().strip()\n\t\td = int(f.readline().strip())\n# pattern = 'ATTCTGGA'\n# genome = 'CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAATGCCTAGCGGCTTGTGGTTTCTCCTACGCTCC'\n# d = 3\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\td",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\t\td = int(f.readline().strip())\n# pattern = 'ATTCTGGA'\n# genome = 'CGCCCGAATCCAGAACGCATTCCCATATTTCGGGACCACTGGCCTCCACGGTACGGACGTCAATCAAATGCCTAGCGGCTTGTGGTTTCTCCTACGCTCC'\n# d = 3\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef approximate_pattern_matching(pattern,genome,d):\n\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif hamming_distance(genome[i:i+len(pattern)],pattern) <= d:\n\t\t\tpositions.append(i)",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    },
+    {
+        "label": "\tpositions",
+        "kind": 5,
+        "importPath": "textbook.scripts.BA1H",
+        "description": "textbook.scripts.BA1H",
+        "peekOfCode": "\tpositions = []\n\tfor i in range(len(genome)-len(pattern)+1):\n\t\tif hamming_distance(genome[i:i+len(pattern)],pattern) <= d:\n\t\t\tpositions.append(i)\n\treturn positions\nprint(' '.join([str(x) for x in approximate_pattern_matching(pattern,genome,d)]))",
+        "detail": "textbook.scripts.BA1H",
+        "documentation": {}
+    }
+]
