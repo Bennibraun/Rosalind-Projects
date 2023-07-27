@@ -37,7 +37,7 @@ def neighbors(pattern,d):
 	if len(pattern) == 1:
 		return {'A','C','G','T'}
 	neighborhood = set()
-	suffix_neighbors = neighbors(pattern[1:],d)
+	suffix_neighbors = neighbors(pattern[1:],d) 
 	for text in suffix_neighbors:
 		if hamming_distance(pattern[1:],text) < d:
 			for x in 'ACGT':
