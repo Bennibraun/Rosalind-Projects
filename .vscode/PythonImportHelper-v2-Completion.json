@@ -48,6 +48,15 @@
         "documentation": {}
     },
     {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
         "label": "nt_count",
         "kind": 5,
         "importPath": "stronghold.1 dna",
@@ -2212,7 +2221,7 @@
         "kind": 2,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "def probability(kmer,profile):\n\t#profile is a 4xk matrix\n\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:\n\t\treturn prob_n\n\telse:",
+        "peekOfCode": "def probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2221,7 +2230,7 @@
         "kind": 2,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "def profile_most_probable_kmer(dna,profile):\n\t#profile is a 4xk matrix\n\tk = len(profile[0])\n\tmax_prob = 0\n\tfor kmer in [dna[i:i+k] for i in range(len(dna)-k+1)]:\n\t\tprob = probability(kmer,profile)\n\t\tif prob > max_prob:\n\t\t\tmax_prob = prob\n\t\t\tmax_kmer = kmer\n\treturn max_kmer",
+        "peekOfCode": "def profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0\n    max_kmer = ''\n    for i in range(len(dna)-k+1):\n        kmer = dna[i:i+k]\n        prob = probability(kmer,profile)\n        if prob > max_prob or max_kmer == '':\n            max_prob = prob\n            max_kmer = kmer",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2230,7 +2239,7 @@
         "kind": 2,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "def make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile",
+        "peekOfCode": "def make_profile(dna,k,start):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i]\n        counts = [kth_nucs.count(nuc) for nuc in mat_rows]\n        sum_counts = sum(counts)\n        probs = [count/sum_counts if sum_counts != 0 else 0 for count in counts]\n        for j in range(len(probs)):\n            profile[j].append(probs[j])",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2266,7 +2275,7 @@
         "kind": 2,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "def greedy_motif_search(dna,k,t):\n\tbest_motifs = get_motifs(dna,k,0)\n\tmat_rows = ['A','C','G','T']\n\tfor motif in [dna[0][j:j+k] for j in range(len(dna[0])-k+1)]:\n\t\tprint(motif)\n\t\tmotif1 = motif\n\t\tmotifs = [motif1]\n\t\tfor i in range(1,t):\n\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)",
+        "peekOfCode": "def greedy_motif_search(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]\n        motifs = [motif]\n        for j in range(1,t):\n            profile = make_profile(motifs,k,0)\n            motifs.append(profile_most_probable_kmer(dna[j],profile,k))\n        if score(motifs) < score(best_motifs):\n            best_motifs = motifs",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2284,7 +2293,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n\t#profile is a 4xk matrix\n\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2293,7 +2302,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n\t#profile is a 4xk matrix\n\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2302,7 +2311,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n\t#profile is a 4xk matrix\n\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:",
+        "peekOfCode": "\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2311,124 +2320,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n\t#profile is a 4xk matrix\n\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:\n\t\treturn prob_n",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tmat_rows",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tmat_rows = ['A','C','G','T']\n\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:\n\t\treturn prob_n\n\telse:\n\t\treturn prob_n * probability(kmer[1:],[profile[i][1:] for i in range(4)])\ndef profile_most_probable_kmer(dna,profile):",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tk_row",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tk_row = [mat_rows.index(kmer[0])]\n\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:\n\t\treturn prob_n\n\telse:\n\t\treturn prob_n * probability(kmer[1:],[profile[i][1:] for i in range(4)])\ndef profile_most_probable_kmer(dna,profile):\n\t#profile is a 4xk matrix",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tprob_n",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tprob_n = profile[k_row[0]][0]\n\tif prob_n == 0:\n\t\treturn 0\n\telif len(kmer) == 1:\n\t\treturn prob_n\n\telse:\n\t\treturn prob_n * probability(kmer[1:],[profile[i][1:] for i in range(4)])\ndef profile_most_probable_kmer(dna,profile):\n\t#profile is a 4xk matrix\n\tk = len(profile[0])",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tk",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tk = len(profile[0])\n\tmax_prob = 0\n\tfor kmer in [dna[i:i+k] for i in range(len(dna)-k+1)]:\n\t\tprob = probability(kmer,profile)\n\t\tif prob > max_prob:\n\t\t\tmax_prob = prob\n\t\t\tmax_kmer = kmer\n\treturn max_kmer\ndef make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tmax_prob",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tmax_prob = 0\n\tfor kmer in [dna[i:i+k] for i in range(len(dna)-k+1)]:\n\t\tprob = probability(kmer,profile)\n\t\tif prob > max_prob:\n\t\t\tmax_prob = prob\n\t\t\tmax_kmer = kmer\n\treturn max_kmer\ndef make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\tprob",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tprob = probability(kmer,profile)\n\t\tif prob > max_prob:\n\t\t\tmax_prob = prob\n\t\t\tmax_kmer = kmer\n\treturn max_kmer\ndef make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\tmax_prob",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tmax_prob = prob\n\t\t\tmax_kmer = kmer\n\treturn max_kmer\ndef make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\tmax_kmer",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tmax_kmer = kmer\n\treturn max_kmer\ndef make_profile(dna,k,n):\n\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tmat_rows",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tmat_rows = ['A','C','G','T']\n\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile\ndef get_motifs(dna,k,n):",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\tprofile",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tprofile = [[],[],[],[]]\n\tfor i in range(n,k+n):\n\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile\ndef get_motifs(dna,k,n):\n\treturn [dna_i[n:n+k] for dna_i in dna]",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\tkth_nucs",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tkth_nucs = [dna[j][i] for j in range(len(dna))]\n\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile\ndef get_motifs(dna,k,n):\n\treturn [dna_i[n:n+k] for dna_i in dna]\ndef hamming_distance(p,q):\n\thamming = 0",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\tcounts",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tcounts = [kth_nucs.count(nuc) for nuc in mat_rows]\n\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile\ndef get_motifs(dna,k,n):\n\treturn [dna_i[n:n+k] for dna_i in dna]\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\tprobs",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tprobs = [count/sum(counts) for count in counts]\n\t\tfor j in range(len(probs)):\n\t\t\tprofile[j].append(probs[j])\n\treturn profile\ndef get_motifs(dna,k,n):\n\treturn [dna_i[n:n+k] for dna_i in dna]\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:",
+        "peekOfCode": "\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2446,7 +2338,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n\tbest_motifs = get_motifs(dna,k,0)",
+        "peekOfCode": "\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2455,7 +2347,7 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n\tbest_motifs = get_motifs(dna,k,0)\n\tmat_rows = ['A','C','G','T']\n\tfor motif in [dna[0][j:j+k] for j in range(len(dna[0])-k+1)]:",
+        "peekOfCode": "\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]",
         "detail": "textbook.scripts.2.BA2D",
         "documentation": {}
     },
@@ -2464,71 +2356,800 @@
         "kind": 5,
         "importPath": "textbook.scripts.2.BA2D",
         "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n\tbest_motifs = get_motifs(dna,k,0)\n\tmat_rows = ['A','C','G','T']\n\tfor motif in [dna[0][j:j+k] for j in range(len(dna[0])-k+1)]:\n\t\tprint(motif)\n\t\tmotif1 = motif",
+        "peekOfCode": "\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]\n        motifs = [motif]\n        for j in range(1,t):",
         "detail": "textbook.scripts.2.BA2D",
+        "documentation": {}
+    },
+    {
+        "label": "probability",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "profile_most_probable_kmer",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0\n    max_kmer = ''\n    for i in range(len(dna)-k+1):\n        kmer = dna[i:i+k]\n        prob = probability(kmer,profile)\n        if prob > max_prob or max_kmer == '':\n            max_prob = prob\n            max_kmer = kmer",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "make_profile_laplace",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def make_profile_laplace(dna,k,start):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i]\n        counts = [kth_nucs.count(nuc)+1 for nuc in mat_rows]\n        sum_counts = sum(counts)\n        probs = [count/sum_counts if sum_counts != 0 else 0 for count in counts]\n        for j in range(len(probs)):\n            profile[j].append(probs[j])",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "get_motifs",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def get_motifs(dna,k,n):\n\treturn [dna_i[n:n+k] for dna_i in dna]\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "score",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search_with_laplace(dna,k,t):",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "greedy_motif_search_with_laplace",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "def greedy_motif_search_with_laplace(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]\n        motifs = [motif]\n        for j in range(1,t):\n            profile = make_profile_laplace(motifs,k,0)\n            motifs.append(profile_most_probable_kmer(dna[j],profile,k))\n        if score(motifs) < score(best_motifs):\n            best_motifs = motifs",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tk,t",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tdna",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\t\t\tdna = [line.strip() for line in f.readlines()]\ndef probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\tconsensus",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search_with_laplace(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tnucs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search_with_laplace(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "\tscore",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2E",
+        "description": "textbook.scripts.2.BA2E",
+        "peekOfCode": "\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef greedy_motif_search_with_laplace(dna,k,t):\n    best_motifs = [dna_i[0:k] for dna_i in dna]\n    for i in range(len(dna[0])-k+1):\n        motif = dna[0][i:i+k]\n        motifs = [motif]\n        for j in range(1,t):",
+        "detail": "textbook.scripts.2.BA2E",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "score",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace(dna,k,start):",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "make_profile_laplace",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def make_profile_laplace(dna,k,start):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i]\n        counts = [kth_nucs.count(nuc)+1 for nuc in mat_rows]\n        sum_counts = sum(counts)\n        probs = [count/sum_counts if sum_counts != 0 else 0 for count in counts]\n        for j in range(len(probs)):\n            profile[j].append(probs[j])",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "probability",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "profile_most_probable_kmer",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0\n    max_kmer = ''\n    for i in range(len(dna)-k+1):\n        kmer = dna[i:i+k]\n        prob = probability(kmer,profile)\n        if prob > max_prob or max_kmer == '':\n            max_prob = prob\n            max_kmer = kmer",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "randomized_motif_search",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "def randomized_motif_search(dna,k,t):\n\tmotifs = []\n\tfor i in range(t):\n\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\twhile True:\n\t\tprofile = make_profile_laplace(motifs,k,0)\n\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2f.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2f.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2f.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tk,t",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\t\tk,t = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tdna",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tconsensus",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace(dna,k,start):\n    mat_rows = ['A','C','G','T']",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tnucs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace(dna,k,start):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tscore",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace(dna,k,start):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i]\n        counts = [kth_nucs.count(nuc)+1 for nuc in mat_rows]",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\tmotifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tmotifs = []\n\tfor i in range(t):\n\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\twhile True:\n\t\tprofile = make_profile_laplace(motifs,k,0)\n\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tstart",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\twhile True:\n\t\tprofile = make_profile_laplace(motifs,k,0)\n\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\telse:\n\t\t\treturn best_motifs, score(best_motifs)",
+        "detail": "textbook.scripts.2.BA2F",
         "documentation": {}
     },
     {
         "label": "\tbest_motifs",
         "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tbest_motifs = get_motifs(dna,k,0)\n\tmat_rows = ['A','C','G','T']\n\tfor motif in [dna[0][j:j+k] for j in range(len(dna[0])-k+1)]:\n\t\tprint(motif)\n\t\tmotif1 = motif\n\t\tmotifs = [motif1]\n\t\tfor i in range(1,t):\n\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)\n\t\t\tprofile = make_profile(motif_i,k,0)",
-        "detail": "textbook.scripts.2.BA2D",
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\tbest_motifs = motifs\n\twhile True:\n\t\tprofile = make_profile_laplace(motifs,k,0)\n\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\telse:\n\t\t\treturn best_motifs, score(best_motifs)\nbest_score = 100000000\nbest_motifs = []",
+        "detail": "textbook.scripts.2.BA2F",
         "documentation": {}
     },
     {
-        "label": "\tmat_rows",
+        "label": "\t\tprofile",
         "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\tmat_rows = ['A','C','G','T']\n\tfor motif in [dna[0][j:j+k] for j in range(len(dna[0])-k+1)]:\n\t\tprint(motif)\n\t\tmotif1 = motif\n\t\tmotifs = [motif1]\n\t\tfor i in range(1,t):\n\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)\n\t\t\tprofile = make_profile(motif_i,k,0)\n\t\t\tmotifs.append(profile_most_probable_kmer(dna[i],profile))",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\tmotif1",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tmotif1 = motif\n\t\tmotifs = [motif1]\n\t\tfor i in range(1,t):\n\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)\n\t\t\tprofile = make_profile(motif_i,k,0)\n\t\t\tmotifs.append(profile_most_probable_kmer(dna[i],profile))\n\t\t\tprint('motifs: ',motifs)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs",
-        "detail": "textbook.scripts.2.BA2D",
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tprofile = make_profile_laplace(motifs,k,0)\n\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\telse:\n\t\t\treturn best_motifs, score(best_motifs)\nbest_score = 100000000\nbest_motifs = []\nfor i in range(1000):\n\t# motif_results, score_result = randomized_motif_search(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG',",
+        "detail": "textbook.scripts.2.BA2F",
         "documentation": {}
     },
     {
         "label": "\t\tmotifs",
         "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\tmotifs = [motif1]\n\t\tfor i in range(1,t):\n\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)\n\t\t\tprofile = make_profile(motif_i,k,0)\n\t\t\tmotifs.append(profile_most_probable_kmer(dna[i],profile))\n\t\t\tprint('motifs: ',motifs)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\t\tprint('best motif: ',best_motifs)",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\tmotif_i",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tmotif_i = get_motifs(dna,k,i)\n\t\t\tprint('motif_i:',motif_i)\n\t\t\tprofile = make_profile(motif_i,k,0)\n\t\t\tmotifs.append(profile_most_probable_kmer(dna[i],profile))\n\t\t\tprint('motifs: ',motifs)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\t\tprint('best motif: ',best_motifs)\n\treturn best_motifs\n# 3 5",
-        "detail": "textbook.scripts.2.BA2D",
-        "documentation": {}
-    },
-    {
-        "label": "\t\t\tprofile",
-        "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tprofile = make_profile(motif_i,k,0)\n\t\t\tmotifs.append(profile_most_probable_kmer(dna[i],profile))\n\t\t\tprint('motifs: ',motifs)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\t\tprint('best motif: ',best_motifs)\n\treturn best_motifs\n# 3 5\n# GGCGTTCAGGCA\n# AAGAATCAGTCA",
-        "detail": "textbook.scripts.2.BA2D",
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tmotifs = [profile_most_probable_kmer(dna[i],profile,k) for i in range(t)]\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\t\telse:\n\t\t\treturn best_motifs, score(best_motifs)\nbest_score = 100000000\nbest_motifs = []\nfor i in range(1000):\n\t# motif_results, score_result = randomized_motif_search(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG',\n\t# 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC',",
+        "detail": "textbook.scripts.2.BA2F",
         "documentation": {}
     },
     {
         "label": "\t\t\tbest_motifs",
         "kind": 5,
-        "importPath": "textbook.scripts.2.BA2D",
-        "description": "textbook.scripts.2.BA2D",
-        "peekOfCode": "\t\t\tbest_motifs = motifs\n\t\t\tprint('best motif: ',best_motifs)\n\treturn best_motifs\n# 3 5\n# GGCGTTCAGGCA\n# AAGAATCAGTCA\n# CAAGGAGTTCGC\n# CACGTCAATCAC\n# CAATAATATTCG\nprint('\\n'.join(greedy_motif_search(['GGCGTTCAGGCA','AAGAATCAGTCA','CAAGGAGTTCGC','CACGTCAATCAC','CAATAATATTCG'],3,5)))",
-        "detail": "textbook.scripts.2.BA2D",
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\t\tbest_motifs = motifs\n\t\telse:\n\t\t\treturn best_motifs, score(best_motifs)\nbest_score = 100000000\nbest_motifs = []\nfor i in range(1000):\n\t# motif_results, score_result = randomized_motif_search(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG',\n\t# 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC',\n\t# 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5)\n\tmotif_results, score_result = randomized_motif_search(dna,k,t)",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "best_score",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "best_score = 100000000\nbest_motifs = []\nfor i in range(1000):\n\t# motif_results, score_result = randomized_motif_search(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG',\n\t# 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC',\n\t# 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5)\n\tmotif_results, score_result = randomized_motif_search(dna,k,t)\n\tif score_result < best_score:\n\t\tbest_score = score_result\n\t\tbest_motifs = motif_results",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "best_motifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "best_motifs = []\nfor i in range(1000):\n\t# motif_results, score_result = randomized_motif_search(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG',\n\t# 'TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC',\n\t# 'AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5)\n\tmotif_results, score_result = randomized_motif_search(dna,k,t)\n\tif score_result < best_score:\n\t\tbest_score = score_result\n\t\tbest_motifs = motif_results\n# print(best_score)",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbest_score",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tbest_score = score_result\n\t\tbest_motifs = motif_results\n# print(best_score)\nfor motif in best_motifs:\n\tprint(motif)",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbest_motifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2F",
+        "description": "textbook.scripts.2.BA2F",
+        "peekOfCode": "\t\tbest_motifs = motif_results\n# print(best_score)\nfor motif in best_motifs:\n\tprint(motif)",
+        "detail": "textbook.scripts.2.BA2F",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "score",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace_gibbs(dna,k,start,i):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "make_profile_laplace_gibbs",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def make_profile_laplace_gibbs(dna,k,start,i):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i and j != i]\n        counts = [kth_nucs.count(nuc)+1 for nuc in mat_rows]\n        sum_counts = sum(counts)\n        probs = [count/sum_counts if sum_counts != 0 else 0 for count in counts]\n        for j in range(len(probs)):\n            profile[j].append(probs[j])",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "probability",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def probability(kmer,profile):\n    #profile is a 4xk matrix\n    mat_rows = ['A','C','G','T']\n    prob_n = 1\n    for i in range(len(kmer)):\n        prob_n *= profile[mat_rows.index(kmer[i])][i]\n    return prob_n\ndef profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "profile_most_probable_kmer",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def profile_most_probable_kmer(dna,profile,k):\n    #profile is a 4xk matrix\n    max_prob = 0\n    max_kmer = ''\n    for i in range(len(dna)-k+1):\n        kmer = dna[i:i+k]\n        prob = probability(kmer,profile)\n        if prob > max_prob or max_kmer == '':\n            max_prob = prob\n            max_kmer = kmer",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "profile_random_kmer",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def profile_random_kmer(dna,profile,k):\n\t# profile is a 4xk matrix\n\tprobs = []\n\tfor i in range(len(dna)-k+1):\n\t\tkmer = dna[i:i+k]\n\t\tprobs.append(probability(kmer,profile))\n\trandom_i = random_gibbs(probs)\n\treturn dna[random_i:random_i+k]\ndef random_gibbs(p):\n\tc = sum(p)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "random_gibbs",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def random_gibbs(p):\n\tc = sum(p)\n\tp = [x/c for x in p]\n\t# print(p)\n\tr = random.random()\n\t# print(r)\n\t# return the index of the integer in p which is closest to r without going over\n\tfor i in range(len(p)):\n\t\t# print(p[i])\n\t\tif r < p[i]:",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "gibbs_sampler",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "def gibbs_sampler(dna, k, t, n):\n\tmotifs = []\n\tfor i in range(t):\n\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\tfor j in range(n):\n\t\ti = int(random.random()*t)\n\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2g.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2g.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t,N = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2g.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk,t,N = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tk,t,N",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\t\tk,t,N = [int(x) for x in f.readline().strip().split()]\n\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tdna",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\t\tdna = [line.strip() for line in f.readlines()]\nimport random\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef score(motifs):\n\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tconsensus",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tconsensus = ''\n\tfor i in range(len(motifs[0])):\n\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace_gibbs(dna,k,start,i):\n    mat_rows = ['A','C','G','T']",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tnucs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tnucs = [motifs[j][i] for j in range(len(motifs))]\n\t\tconsensus += max(set(nucs),key=nucs.count)\n\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace_gibbs(dna,k,start,i):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tscore",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tscore = 0\n\tfor motif in motifs:\n\t\tscore += hamming_distance(motif,consensus)\n\treturn score\ndef make_profile_laplace_gibbs(dna,k,start,i):\n    mat_rows = ['A','C','G','T']\n    profile = [[],[],[],[]]\n    for i in range(start,start+k):\n        kth_nucs = [dna[j][i] for j in range(len(dna)) if len(dna[j]) > i and j != i]\n        counts = [kth_nucs.count(nuc)+1 for nuc in mat_rows]",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tprobs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tprobs = []\n\tfor i in range(len(dna)-k+1):\n\t\tkmer = dna[i:i+k]\n\t\tprobs.append(probability(kmer,profile))\n\trandom_i = random_gibbs(probs)\n\treturn dna[random_i:random_i+k]\ndef random_gibbs(p):\n\tc = sum(p)\n\tp = [x/c for x in p]\n\t# print(p)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tkmer",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tkmer = dna[i:i+k]\n\t\tprobs.append(probability(kmer,profile))\n\trandom_i = random_gibbs(probs)\n\treturn dna[random_i:random_i+k]\ndef random_gibbs(p):\n\tc = sum(p)\n\tp = [x/c for x in p]\n\t# print(p)\n\tr = random.random()\n\t# print(r)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\trandom_i",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\trandom_i = random_gibbs(probs)\n\treturn dna[random_i:random_i+k]\ndef random_gibbs(p):\n\tc = sum(p)\n\tp = [x/c for x in p]\n\t# print(p)\n\tr = random.random()\n\t# print(r)\n\t# return the index of the integer in p which is closest to r without going over\n\tfor i in range(len(p)):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tc",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tc = sum(p)\n\tp = [x/c for x in p]\n\t# print(p)\n\tr = random.random()\n\t# print(r)\n\t# return the index of the integer in p which is closest to r without going over\n\tfor i in range(len(p)):\n\t\t# print(p[i])\n\t\tif r < p[i]:\n\t\t\treturn i",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tp",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tp = [x/c for x in p]\n\t# print(p)\n\tr = random.random()\n\t# print(r)\n\t# return the index of the integer in p which is closest to r without going over\n\tfor i in range(len(p)):\n\t\t# print(p[i])\n\t\tif r < p[i]:\n\t\t\treturn i\n\t\tr -= p[i]",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tr",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tr = random.random()\n\t# print(r)\n\t# return the index of the integer in p which is closest to r without going over\n\tfor i in range(len(p)):\n\t\t# print(p[i])\n\t\tif r < p[i]:\n\t\t\treturn i\n\t\tr -= p[i]\ndef gibbs_sampler(dna, k, t, n):\n\tmotifs = []",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tmotifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tmotifs = []\n\tfor i in range(t):\n\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\tfor j in range(n):\n\t\ti = int(random.random()*t)\n\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tstart",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tstart = random.randint(0,len(dna[i])-k)\n\t\tmotifs.append(dna[i][start:start+k])\n\tbest_motifs = motifs\n\tfor j in range(n):\n\t\ti = int(random.random()*t)\n\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tbest_motifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tbest_motifs = motifs\n\tfor j in range(n):\n\t\ti = int(random.random()*t)\n\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)\nbest_m = []\nbest_s = 100000",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\ti",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\ti = int(random.random()*t)\n\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)\nbest_m = []\nbest_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tprofile",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tprofile = make_profile_laplace_gibbs(motifs,k,0,i)\n\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)\nbest_m = []\nbest_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)\n\tm,s = gibbs_sampler(dna,k,t,N)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tmotifs[i]",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tmotifs[i] = profile_random_kmer(dna[i],profile,k)\n\t\tif score(motifs) < score(best_motifs):\n\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)\nbest_m = []\nbest_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)\n\tm,s = gibbs_sampler(dna,k,t,N)\n\t# print(m)",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tbest_motifs",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\t\tbest_motifs = motifs\n\treturn best_motifs, score(best_motifs)\nbest_m = []\nbest_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)\n\tm,s = gibbs_sampler(dna,k,t,N)\n\t# print(m)\n\tif s < best_s:\n\t\tbest_m = m",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "best_m",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "best_m = []\nbest_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)\n\tm,s = gibbs_sampler(dna,k,t,N)\n\t# print(m)\n\tif s < best_s:\n\t\tbest_m = m\n\t\tbest_s = s\nprint('\\n'.join(best_m))",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "best_s",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "best_s = 100000\nfor s in range(20):\n\t# m,s = gibbs_sampler(['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA','GGGCGAGGTATGTGTAAGTGCCAAGGTGCCAG','TAGTACCGAGACCGAAAGAAGTATACAGGCGT','TAGATCAAGTTTCAGGTGCACGTCGGTGAACC','AATCCACCAGCTCCACGTGCAATGTTGGCCTA'],8,5,100)\n\tm,s = gibbs_sampler(dna,k,t,N)\n\t# print(m)\n\tif s < best_s:\n\t\tbest_m = m\n\t\tbest_s = s\nprint('\\n'.join(best_m))",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\tm,s",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\tm,s = gibbs_sampler(dna,k,t,N)\n\t# print(m)\n\tif s < best_s:\n\t\tbest_m = m\n\t\tbest_s = s\nprint('\\n'.join(best_m))",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbest_m",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tbest_m = m\n\t\tbest_s = s\nprint('\\n'.join(best_m))",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "\t\tbest_s",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2G",
+        "description": "textbook.scripts.2.BA2G",
+        "peekOfCode": "\t\tbest_s = s\nprint('\\n'.join(best_m))",
+        "detail": "textbook.scripts.2.BA2G",
+        "documentation": {}
+    },
+    {
+        "label": "hamming_distance",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "def hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef distance_btw_pattern_and_strings(pattern,dna):\n\tk = len(pattern)\n\tdistance = 0\n\tfor text in dna:",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "distance_btw_pattern_and_strings",
+        "kind": 2,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "def distance_btw_pattern_and_strings(pattern,dna):\n\tk = len(pattern)\n\tdistance = 0\n\tfor text in dna:\n\t\thamming = 1000000000\n\t\tfor p in [text[i:i+k] for i in range(len(text)-k+1)]:\n\t\t\tif hamming > hamming_distance(pattern,p):\n\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2h.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba2h.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpattern = f.readline().strip()\n\t\t\tdna = f.readline().strip().split()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba2h.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpattern = f.readline().strip()\n\t\t\tdna = f.readline().strip().split()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tpattern",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\t\t\tpattern = f.readline().strip()\n\t\t\tdna = f.readline().strip().split()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef distance_btw_pattern_and_strings(pattern,dna):\n\tk = len(pattern)",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tdna",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\t\t\tdna = f.readline().strip().split()\ndef hamming_distance(p,q):\n\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef distance_btw_pattern_and_strings(pattern,dna):\n\tk = len(pattern)\n\tdistance = 0",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\thamming = 0\n\tfor i in range(len(p)):\n\t\tif p[i] != q[i]:\n\t\t\thamming += 1\n\treturn hamming\ndef distance_btw_pattern_and_strings(pattern,dna):\n\tk = len(pattern)\n\tdistance = 0\n\tfor text in dna:\n\t\thamming = 1000000000",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\tk",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\tk = len(pattern)\n\tdistance = 0\n\tfor text in dna:\n\t\thamming = 1000000000\n\t\tfor p in [text[i:i+k] for i in range(len(text)-k+1)]:\n\t\t\tif hamming > hamming_distance(pattern,p):\n\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance\n# print(distance_btw_pattern_and_strings('AAA',['TTACCTTAAC','GATATCTGTC','ACGGCGTTCG','CCCTAAAGAG','CGTCAGAGGT']))",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\tdistance",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\tdistance = 0\n\tfor text in dna:\n\t\thamming = 1000000000\n\t\tfor p in [text[i:i+k] for i in range(len(text)-k+1)]:\n\t\t\tif hamming > hamming_distance(pattern,p):\n\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance\n# print(distance_btw_pattern_and_strings('AAA',['TTACCTTAAC','GATATCTGTC','ACGGCGTTCG','CCCTAAAGAG','CGTCAGAGGT']))\nprint(distance_btw_pattern_and_strings(pattern,dna))",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\t\thamming = 1000000000\n\t\tfor p in [text[i:i+k] for i in range(len(text)-k+1)]:\n\t\t\tif hamming > hamming_distance(pattern,p):\n\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance\n# print(distance_btw_pattern_and_strings('AAA',['TTACCTTAAC','GATATCTGTC','ACGGCGTTCG','CCCTAAAGAG','CGTCAGAGGT']))\nprint(distance_btw_pattern_and_strings(pattern,dna))",
+        "detail": "textbook.scripts.2.BA2H",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\t\thamming",
+        "kind": 5,
+        "importPath": "textbook.scripts.2.BA2H",
+        "description": "textbook.scripts.2.BA2H",
+        "peekOfCode": "\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance\n# print(distance_btw_pattern_and_strings('AAA',['TTACCTTAAC','GATATCTGTC','ACGGCGTTCG','CCCTAAAGAG','CGTCAGAGGT']))\nprint(distance_btw_pattern_and_strings(pattern,dna))",
+        "detail": "textbook.scripts.2.BA2H",
         "documentation": {}
     }
 ]
