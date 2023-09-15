@@ -3394,5 +3394,95 @@
         "peekOfCode": "\tadjacency_list = []\n\tfor node in edges:\n\t\tif len(edges[node]) > 0:\n\t\t\tadjacency_list.append(node + ' -> ' + ','.join(edges[node]))\n\treturn adjacency_list\n# print('\\n'.join(debruijn_graph('AAGATTCTCTAC',4)))\n# print('\\n'.join(debruijn_graph(text,k)))\n# write to output file\nwith open(os.path.join(datapath,'rosalind_ba3d_output.txt'),'w') as outputfile:\n\toutputfile.write('\\n'.join(debruijn_graph(text,k)))",
         "detail": "textbook.scripts.3.BA3D",
         "documentation": {}
+    },
+    {
+        "label": "debruijn_from_kmers",
+        "kind": 2,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "def debruijn_from_kmers(patterns):\n\t# k = len(patterns[0])-1\n\t# edges = {node:[] for node in set(patterns)}\n\t# for i,p in enumerate(patterns):\n\t# \tfor ii,pp in enumerate(patterns):\n\t# \t\tif ii==i:\n\t# \t\t\tcontinue\n\t# \t\tif p[1:] == pp[:k]:\n\t# \t\t\tedges[p].append(pp)\n\t# given a collection of k-mers, the nodes are simply all unique (k-1)-mers that are a prefix or suffix of any k-mer",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpatterns = f.readlines()\n\t\t\tpatterns = [p.strip() for p in patterns]\ndef debruijn_from_kmers(patterns):\n\t# k = len(patterns[0])-1\n\t# edges = {node:[] for node in set(patterns)}\n\t# for i,p in enumerate(patterns):",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba3e.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpatterns = f.readlines()\n\t\t\tpatterns = [p.strip() for p in patterns]\ndef debruijn_from_kmers(patterns):\n\t# k = len(patterns[0])-1\n\t# edges = {node:[] for node in set(patterns)}\n\t# for i,p in enumerate(patterns):\n\t# \tfor ii,pp in enumerate(patterns):",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tpatterns",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\t\t\tpatterns = f.readlines()\n\t\t\tpatterns = [p.strip() for p in patterns]\ndef debruijn_from_kmers(patterns):\n\t# k = len(patterns[0])-1\n\t# edges = {node:[] for node in set(patterns)}\n\t# for i,p in enumerate(patterns):\n\t# \tfor ii,pp in enumerate(patterns):\n\t# \t\tif ii==i:\n\t# \t\t\tcontinue\n\t# \t\tif p[1:] == pp[:k]:",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tpatterns",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\t\t\tpatterns = [p.strip() for p in patterns]\ndef debruijn_from_kmers(patterns):\n\t# k = len(patterns[0])-1\n\t# edges = {node:[] for node in set(patterns)}\n\t# for i,p in enumerate(patterns):\n\t# \tfor ii,pp in enumerate(patterns):\n\t# \t\tif ii==i:\n\t# \t\t\tcontinue\n\t# \t\tif p[1:] == pp[:k]:\n\t# \t\t\tedges[p].append(pp)",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tk",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tk = len(patterns[0])-1\n\tnodes = set()\n\tfor p in patterns:\n\t\tnodes.add(p[1:])\n\t\tnodes.add(p[:k])\n\t# for every k-mer, we connect the prefix node and suffix node by a directed edge\n\tedges = {node:[] for node in nodes}\n\tfor p in patterns:\n\t\tedges[p[:k]].append(p[1:])\n\t# create print format of adjacency list",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tnodes",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tnodes = set()\n\tfor p in patterns:\n\t\tnodes.add(p[1:])\n\t\tnodes.add(p[:k])\n\t# for every k-mer, we connect the prefix node and suffix node by a directed edge\n\tedges = {node:[] for node in nodes}\n\tfor p in patterns:\n\t\tedges[p[:k]].append(p[1:])\n\t# create print format of adjacency list\n\tadjacency_list = []",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tedges",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tedges = {node:[] for node in nodes}\n\tfor p in patterns:\n\t\tedges[p[:k]].append(p[1:])\n\t# create print format of adjacency list\n\tadjacency_list = []\n\tfor node in edges:\n\t\tif len(edges[node]) > 0:\n\t\t\tadjacency_list.append(node + ' -> ' + ','.join(edges[node]))\n\treturn adjacency_list\n# print(debruijn_from_kmers(['GAGG','CAGG','GGGG','GGGA','CAGG','AGGG','GGAG']))",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
+    },
+    {
+        "label": "\tadjacency_list",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3E",
+        "description": "textbook.scripts.3.BA3E",
+        "peekOfCode": "\tadjacency_list = []\n\tfor node in edges:\n\t\tif len(edges[node]) > 0:\n\t\t\tadjacency_list.append(node + ' -> ' + ','.join(edges[node]))\n\treturn adjacency_list\n# print(debruijn_from_kmers(['GAGG','CAGG','GGGG','GGGA','CAGG','AGGG','GGAG']))\n# write to output file\nwith open(os.path.join(datapath,'rosalind_ba3e_output.txt'),'w') as outputfile:\n\toutputfile.write('\\n'.join(debruijn_from_kmers(patterns)))",
+        "detail": "textbook.scripts.3.BA3E",
+        "documentation": {}
     }
 ]
