@@ -3151,5 +3151,248 @@
         "peekOfCode": "\t\t\t\thamming = hamming_distance(pattern,p)\n\t\tdistance += hamming\n\treturn distance\n# print(distance_btw_pattern_and_strings('AAA',['TTACCTTAAC','GATATCTGTC','ACGGCGTTCG','CCCTAAAGAG','CGTCAGAGGT']))\nprint(distance_btw_pattern_and_strings(pattern,dna))",
         "detail": "textbook.scripts.2.BA2H",
         "documentation": {}
+    },
+    {
+        "label": "composition",
+        "kind": 2,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "def composition(text,k):\n\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))\nprint('\\n'.join(composition(text,k)))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3a.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3a.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef composition(text,k):\n\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba3a.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef composition(text,k):\n\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))\nprint('\\n'.join(composition(text,k)))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tk",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef composition(text,k):\n\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))\nprint('\\n'.join(composition(text,k)))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\t\t\ttext = f.readline().strip()\ndef composition(text,k):\n\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))\nprint('\\n'.join(composition(text,k)))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "\tkmers",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3A",
+        "description": "textbook.scripts.3.BA3A",
+        "peekOfCode": "\tkmers = [text[i:i+k] for i in range(len(text)-k+1)]\n\treturn sorted(kmers)\n# print(composition('CAATCCAAC',5))\nprint('\\n'.join(composition(text,k)))",
+        "detail": "textbook.scripts.3.BA3A",
+        "documentation": {}
+    },
+    {
+        "label": "genome_path",
+        "kind": 2,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "def genome_path(kmers):\n\ttext = kmers[0]\n\tfor kmer in kmers[1:]:\n\t\ttext += kmer[-1]\n\treturn text\n# print(genome_path(['ACCGA','CCGAA','CGAAG','GAAGC','AAGCT']))\nprint(genome_path(kmers))",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3b.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3b.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tkmers = [line.strip() for line in f.readlines()]\ndef genome_path(kmers):\n\ttext = kmers[0]\n\tfor kmer in kmers[1:]:\n\t\ttext += kmer[-1]\n\treturn text",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba3b.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tkmers = [line.strip() for line in f.readlines()]\ndef genome_path(kmers):\n\ttext = kmers[0]\n\tfor kmer in kmers[1:]:\n\t\ttext += kmer[-1]\n\treturn text\n# print(genome_path(['ACCGA','CCGAA','CGAAG','GAAGC','AAGCT']))",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tkmers",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "\t\t\tkmers = [line.strip() for line in f.readlines()]\ndef genome_path(kmers):\n\ttext = kmers[0]\n\tfor kmer in kmers[1:]:\n\t\ttext += kmer[-1]\n\treturn text\n# print(genome_path(['ACCGA','CCGAA','CGAAG','GAAGC','AAGCT']))\nprint(genome_path(kmers))",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3B",
+        "description": "textbook.scripts.3.BA3B",
+        "peekOfCode": "\ttext = kmers[0]\n\tfor kmer in kmers[1:]:\n\t\ttext += kmer[-1]\n\treturn text\n# print(genome_path(['ACCGA','CCGAA','CGAAG','GAAGC','AAGCT']))\nprint(genome_path(kmers))",
+        "detail": "textbook.scripts.3.BA3B",
+        "documentation": {}
+    },
+    {
+        "label": "overlap_graph",
+        "kind": 2,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "def overlap_graph(patterns):\n\tadjacency_list = []\n\tfor pattern in patterns:\n\t\tfor pattern2 in patterns:\n\t\t\tif pattern[1:] == pattern2[:-1]:\n\t\t\t\tadjacency_list.append(pattern + ' -> ' + pattern2)\n\treturn adjacency_list\n# print('\\n'.join(overlap_graph(['ATGCG','GCATG','CATGC','AGGCA','GGCAT'])))\nprint('\\n'.join(overlap_graph(patterns)))",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3c.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3c.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpatterns = [line.strip() for line in f.readlines()]\ndef overlap_graph(patterns):\n\tadjacency_list = []\n\tfor pattern in patterns:\n\t\tfor pattern2 in patterns:\n\t\t\tif pattern[1:] == pattern2[:-1]:",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba3c.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tpatterns = [line.strip() for line in f.readlines()]\ndef overlap_graph(patterns):\n\tadjacency_list = []\n\tfor pattern in patterns:\n\t\tfor pattern2 in patterns:\n\t\t\tif pattern[1:] == pattern2[:-1]:\n\t\t\t\tadjacency_list.append(pattern + ' -> ' + pattern2)",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tpatterns",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "\t\t\tpatterns = [line.strip() for line in f.readlines()]\ndef overlap_graph(patterns):\n\tadjacency_list = []\n\tfor pattern in patterns:\n\t\tfor pattern2 in patterns:\n\t\t\tif pattern[1:] == pattern2[:-1]:\n\t\t\t\tadjacency_list.append(pattern + ' -> ' + pattern2)\n\treturn adjacency_list\n# print('\\n'.join(overlap_graph(['ATGCG','GCATG','CATGC','AGGCA','GGCAT'])))\nprint('\\n'.join(overlap_graph(patterns)))",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "\tadjacency_list",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3C",
+        "description": "textbook.scripts.3.BA3C",
+        "peekOfCode": "\tadjacency_list = []\n\tfor pattern in patterns:\n\t\tfor pattern2 in patterns:\n\t\t\tif pattern[1:] == pattern2[:-1]:\n\t\t\t\tadjacency_list.append(pattern + ' -> ' + pattern2)\n\treturn adjacency_list\n# print('\\n'.join(overlap_graph(['ATGCG','GCATG','CATGC','AGGCA','GGCAT'])))\nprint('\\n'.join(overlap_graph(patterns)))",
+        "detail": "textbook.scripts.3.BA3C",
+        "documentation": {}
+    },
+    {
+        "label": "debruijn_graph",
+        "kind": 2,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "def debruijn_graph(text,k):\n\t# make a dictionary for edges in a directed graph, using the starting node as the key and the ending node as the value\n\t# edges = set([text[i:i+k-1] for i in range(len(text)-k+2)])\n\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}\n\t# print(edges)\n\t# iterate through text, adding edges between nodes. A single node can connect to multiple nodes, which are delimited by commas\n\tfor i in range(len(text)-k+1):\n\t\tedges[text[i:i+k-1]].append(text[i+1:i+k])\n\t# create print format of adjacency list\n\tadjacency_list = []",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\tdatapath = []\n\tif 'textbook' in glob.glob('*'):\n\t\tdatapath.append('textbook')\n\t\tdatapath.append('data')\n\telif len(glob.glob('*.py')) > 0:\n\t\tdatapath.extend(['..','..','data'])\n\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\tdatapath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\tdatapath = os.path.join(*datapath)\n\tpath = os.path.join(datapath,'rosalind_ba3d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef debruijn_graph(text,k):\n\t# make a dictionary for edges in a directed graph, using the starting node as the key and the ending node as the value\n\t# edges = set([text[i:i+k-1] for i in range(len(text)-k+2)])\n\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\tpath",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\tpath = os.path.join(datapath,'rosalind_ba3d.txt')\n\tif os.path.exists(path):\n\t\twith open(path) as f:\n\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef debruijn_graph(text,k):\n\t# make a dictionary for edges in a directed graph, using the starting node as the key and the ending node as the value\n\t# edges = set([text[i:i+k-1] for i in range(len(text)-k+2)])\n\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}\n\t# print(edges)",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\tk",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\t\t\tk = int(f.readline().strip())\n\t\t\ttext = f.readline().strip()\ndef debruijn_graph(text,k):\n\t# make a dictionary for edges in a directed graph, using the starting node as the key and the ending node as the value\n\t# edges = set([text[i:i+k-1] for i in range(len(text)-k+2)])\n\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}\n\t# print(edges)\n\t# iterate through text, adding edges between nodes. A single node can connect to multiple nodes, which are delimited by commas\n\tfor i in range(len(text)-k+1):\n\t\tedges[text[i:i+k-1]].append(text[i+1:i+k])",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\t\t\ttext",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\t\t\ttext = f.readline().strip()\ndef debruijn_graph(text,k):\n\t# make a dictionary for edges in a directed graph, using the starting node as the key and the ending node as the value\n\t# edges = set([text[i:i+k-1] for i in range(len(text)-k+2)])\n\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}\n\t# print(edges)\n\t# iterate through text, adding edges between nodes. A single node can connect to multiple nodes, which are delimited by commas\n\tfor i in range(len(text)-k+1):\n\t\tedges[text[i:i+k-1]].append(text[i+1:i+k])\n\t# create print format of adjacency list",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\tedges",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\tedges = {node:[] for node in list(set([text[i:i+k-1] for i in range(len(text)-k+2)]))}\n\t# print(edges)\n\t# iterate through text, adding edges between nodes. A single node can connect to multiple nodes, which are delimited by commas\n\tfor i in range(len(text)-k+1):\n\t\tedges[text[i:i+k-1]].append(text[i+1:i+k])\n\t# create print format of adjacency list\n\tadjacency_list = []\n\tfor node in edges:\n\t\tif len(edges[node]) > 0:\n\t\t\tadjacency_list.append(node + ' -> ' + ','.join(edges[node]))",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
+    },
+    {
+        "label": "\tadjacency_list",
+        "kind": 5,
+        "importPath": "textbook.scripts.3.BA3D",
+        "description": "textbook.scripts.3.BA3D",
+        "peekOfCode": "\tadjacency_list = []\n\tfor node in edges:\n\t\tif len(edges[node]) > 0:\n\t\t\tadjacency_list.append(node + ' -> ' + ','.join(edges[node]))\n\treturn adjacency_list\n# print('\\n'.join(debruijn_graph('AAGATTCTCTAC',4)))\n# print('\\n'.join(debruijn_graph(text,k)))\n# write to output file\nwith open(os.path.join(datapath,'rosalind_ba3d_output.txt'),'w') as outputfile:\n\toutputfile.write('\\n'.join(debruijn_graph(text,k)))",
+        "detail": "textbook.scripts.3.BA3D",
+        "documentation": {}
     }
 ]
